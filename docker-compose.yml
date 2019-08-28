@@ -1,0 +1,21 @@
+version: "2.4"
+
+services:
+  node-client:
+    container_name: e_survey_client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    init: true
+    # depends_on:
+    #   - node-api
+    volumes:
+      - ./client:/app
+# anonymous volume to prevent overwriting during mount
+      - ./app/node_modules
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+#added for windows hot-reload to enable watchers
+      - CHOKIDAR_USEPOLLING=true
